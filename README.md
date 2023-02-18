@@ -30,12 +30,30 @@ MAKE SURE ICON FILE IS PRESENT
 
 ```pascal
 [Registry]
+[Registry]
 Root: HKCR; Subkey: ".tdoc"; ValueType: string; ValueData: "Twileloop.Document"; Flags: uninsdeletevalue
 Root: HKCR; Subkey: "Twileloop.Document"; ValueType: string; ValueData: "Twileloop Document File"; Flags: uninsdeletekey
 Root: HKCR; Subkey: "Twileloop.Document\DefaultIcon"; ValueType: string; ValueData: "{app}\tdoc_icon.ico"; Flags: uninsdeletekey
-Root: HKCR; Subkey: "Twileloop.Document\shell\open\command"; ValueType: string; ValueData: """{app}\{#MyAppExeName}"" ""%1"""; Flags: uninsdeletekey
+Root: HKCR; Subkey: "Twileloop.Document\shell\OptionA\command"; ValueType: string; ValueData: """{app}\{#MyAppExeName}"" -optA ""%1"""; Flags: uninsdeletekey
+Root: HKCR; Subkey: "Twileloop.Document\shell\OptionA"; ValueType: string; ValueData: "Option A"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "Twileloop.Document\shell\OptionB\command"; ValueType: string; ValueData: """{app}\{#MyAppExeName}"" -optB ""%1"""; Flags: uninsdeletekey
+Root: HKCR; Subkey: "Twileloop.Document\shell\OptionB"; ValueType: string; ValueData: "Option B"; Flags: uninsdeletekey
 ```
 
-This will register `*.tdoc` and shows a description `Twileloop Document File` in Windows Explorer. It makes your application launch when double clicked. Also during Unistallation, the reg entries are removed.
+This will bring 2 options `Option A` and `Option B` when right clicking on a `.tdoc` file. It'll issue `-optA` or `-optB` as arguments to the application
 
-MAKE SURE ICON FILE IS PRESENT
+## Advanced Nested Shell Integration
+
+```pascal
+[Registry]
+[Registry]
+Root: HKCR; Subkey: ".tdoc"; ValueType: string; ValueData: "Twileloop.Document"; Flags: uninsdeletevalue
+Root: HKCR; Subkey: "Twileloop.Document"; ValueType: string; ValueData: "Twileloop Document File"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "Twileloop.Document\DefaultIcon"; ValueType: string; ValueData: "{app}\tdoc_icon.ico"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "Twileloop.Document\shell\OptionA\command"; ValueType: string; ValueData: """{app}\{#MyAppExeName}"" -optA ""%1"""; Flags: uninsdeletekey
+Root: HKCR; Subkey: "Twileloop.Document\shell\OptionA"; ValueType: string; ValueData: "Option A"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "Twileloop.Document\shell\OptionB\command"; ValueType: string; ValueData: """{app}\{#MyAppExeName}"" -optB ""%1"""; Flags: uninsdeletekey
+Root: HKCR; Subkey: "Twileloop.Document\shell\OptionB"; ValueType: string; ValueData: "Option B"; Flags: uninsdeletekey
+```
+
+This will bring 2 options `Option A` and `Option B` when right clicking on a `.tdoc` file. It'll issue `-optA` or `-optB` as arguments to the application
