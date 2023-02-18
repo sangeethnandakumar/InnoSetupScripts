@@ -1,7 +1,7 @@
 # InnoSetupScripts
 Example scripts to accomplish things
 
-## Install .NET 7 Desktop Runtimealong with WinForms app
+## Install .NET 7 Desktop Runtime along with WinForms app
 
 ```pascal
 [Run]
@@ -11,3 +11,31 @@ Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChang
 ```
 
 Here the second statement, Will wait for 18 seconds to make sure dotnet_runtime is installed. This wait purposefull because else Inno finishes before runtime is correctly installed. The wizard will freeze for 18seconds and shows 'Installing .NET 7 desktop runtime... This can take upto a minuit'
+
+## Associate a filetype in Windows
+
+```pascal
+[Registry]
+Root: HKCR; Subkey: ".tdoc"; ValueType: string; ValueData: "Twileloop.Document"; Flags: uninsdeletevalue
+Root: HKCR; Subkey: "Twileloop.Document"; ValueType: string; ValueData: "Twileloop Document File"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "Twileloop.Document\DefaultIcon"; ValueType: string; ValueData: "{app}\tdoc_icon.ico"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "Twileloop.Document\shell\open\command"; ValueType: string; ValueData: """{app}\{#MyAppExeName}"" ""%1"""; Flags: uninsdeletekey
+```
+
+This will register `*.tdoc` and shows a description `Twileloop Document File` in Windows Explorer. It makes your application launch when double clicked. Also during Unistallation, the reg entries are removed.
+
+MAKE SURE ICON FILE IS PRESENT
+
+## Advanced Shell Integration
+
+```pascal
+[Registry]
+Root: HKCR; Subkey: ".tdoc"; ValueType: string; ValueData: "Twileloop.Document"; Flags: uninsdeletevalue
+Root: HKCR; Subkey: "Twileloop.Document"; ValueType: string; ValueData: "Twileloop Document File"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "Twileloop.Document\DefaultIcon"; ValueType: string; ValueData: "{app}\tdoc_icon.ico"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "Twileloop.Document\shell\open\command"; ValueType: string; ValueData: """{app}\{#MyAppExeName}"" ""%1"""; Flags: uninsdeletekey
+```
+
+This will register `*.tdoc` and shows a description `Twileloop Document File` in Windows Explorer. It makes your application launch when double clicked. Also during Unistallation, the reg entries are removed.
+
+MAKE SURE ICON FILE IS PRESENT
